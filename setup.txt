@@ -1,0 +1,59 @@
+Setup a dedicated Minecraft Server on Amazon AWS EC2
+
+Create an aws account https://portal.aws.amazon.com/billing/signup#/start 
+
+Enter the AWS management dashboard https://signin.aws.amazon.com/
+
+Step 1. Navigate to the EC2 Dahboard in order to create a new instance
+
+Step 2. Launch a new instance and select a free tier instance. Windows Server 2012 R2 t.1 micro has 750 hours per month for free.
+
+Download minecraft https://www.minecraft.net/en-us/download/server
+
+The version used in this server is minecraft_server.1.16.4.jar
+
+Run the server with the following command: java -Xmx1024M -Xms1024M -jar minecraft_server.1.16.4.jar nogui
+
+Step 3. Configuring Instace Details
+Number of instances: 1
+Network: accept default vpc
+Subnet: accept default subnet
+Auto-assign Public IP: Enabled
+
+Step 4: Storage
+30GB General Purpose SSD GP2
+
+Step 5: Tag Instance
+Value: MinecraftServer
+
+Step 6: Configure Security Group
+Security group name: Minecraft
+
+Add Rule: Custom TCP Rule | Protocol: TCP | Port Range: 25565 | Source: Set to Anywhere: 0.0.0.0/0
+
+Step 7: Review and Launch
+
+Creating a key pair
+1. Create a new pair
+2. Key pair name: minecraft_server_key
+3. Download key pair
+
+Launch Instance
+
+Select Actions > Connect > Get Password > Download Key Pair file > Decrypt Password
+
+Connect to your Windows Server instance using remote desktop built in your windows machine, enter credentials.
+
+Drag and drop the downloaded minecraft files in your local computer to your Windows Server instance.
+
+Create a text file in your minecraft server directory. paste: java -Xmx1024M -Xms1024M -jar minecraft_server.1.16.4.jar nogui
+
+Save this text file as start.bat
+
+Open start.bat to start your Minecraft server, the server will prompt you to accept the EULA terms. Exit out of the server
+
+Open the eula.txt file in your server directory. Edit eula=false to eula=true
+
+Launch the server using the start.bat
+
+You can edit the server using the server.properties file
